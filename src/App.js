@@ -4,27 +4,39 @@ import { v4 } from 'uuid';
 import './App.css';
 import TodoForm from './components/TodoForm';
 
-
-function App() {
+const App = () => {
   const [textInput, setTextInput] = useState(""); //empty string
   const [todoList, setTodoList] = useState([]); //empty array
 
   const onChangeTextInput = (event) => {
     setTextInput(event.target.value);
-    console.log(event.target.value);
+    // console.log(event.target.value);
   }
 
   const onAddTodo = () => {
     setTodoList([
-      ...todoList,
-      { id: v4(), name: textInput, isCompleted: false }
+      { id: v4(), name: textInput, isCompleted: false },
+      ...todoList
     ])
     setTextInput("");
-    console.log(todoList);
+    // console.log(todoList);
   }
 
   const onRefresh = () => {
     setTodoList([]);
+  }
+
+  const onDeleteTodo = (id) => {
+    const data = todoList.filter(todo => todo.id !== id);
+    setTodoList(data);
+    // console.log({ id, data });
+  }
+
+  const onCompleteTodo = (id) => {
+    const updateTodos = todoList.map(todo =>
+      todo.id === id ? { ...todo, isCompleted: true } : todo
+    )
+    setTodoList(updateTodos);
   }
   return (
     <div className="App">
@@ -34,6 +46,8 @@ function App() {
         textInput={textInput}
         onChangeTextInput={onChangeTextInput}
         onAddTodo={onAddTodo}
+        onDeleteTodo={onDeleteTodo}
+        onCompleteTodo={onCompleteTodo}
       />
       <Button
         variant='contained'

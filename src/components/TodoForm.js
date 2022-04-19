@@ -1,15 +1,16 @@
 import React from 'react';
-import { TextField, Button } from '@mui/material';
+import { Input, Button } from '@mui/material';
 import TodoList from './TodoList';
 
 import '../App.css'
 
-const TodoForm = ({ onAddTodo, onChangeTextInput, todoList, textInput }) => {
+const TodoForm = ({ onAddTodo, onChangeTextInput, onDeleteTodo, onCompleteTodo, todoList, textInput }) => {
+
     return (
         <div className='todo-form'>
-            <TextField
+            <Input
+                autoFocus
                 placeholder='Write a new task...'
-                variant='standard'
                 value={textInput}
                 onChange={onChangeTextInput}
             />
@@ -25,7 +26,7 @@ const TodoForm = ({ onAddTodo, onChangeTextInput, todoList, textInput }) => {
                 Add a new task
             </Button>
             <div>
-                <TodoList todoList={todoList} />
+                <TodoList todoList={todoList} onDeleteTodo={onDeleteTodo} onCompleteTodo={onCompleteTodo} />
             </div>
         </div >
     )
