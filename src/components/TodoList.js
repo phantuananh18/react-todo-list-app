@@ -20,10 +20,18 @@
 
 /** apply redux */
 import React from 'react';
+import Todo from './Todo';
+import '../App.css'
 
-const TodoList = () => {
+const TodoList = ({ todoList }) => {
     return (
-        <div>TodoList</div>
+        <div className='todo-list'>
+            {todoList.map(todo =>
+                <Todo
+                    key={todo.id}
+                    todo={todo}
+                />)}
+        </div>
     )
 }
 

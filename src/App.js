@@ -64,12 +64,28 @@
 
 /** apply redux */
 import React from 'react';
+import { Button } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { refreshTodo } from './redux/actions/todoActions';
+import './App.css';
 import TodoForm from './components/TodoForm';
 
 const App = () => {
+  const dispatch = useDispatch();
+  const onHandleRefresh = () => {
+    dispatch(refreshTodo());
+  }
+
   return (
-    <div>
+    <div className='App'>
       <TodoForm />
+      <Button
+        variant='contained'
+        color='primary'
+        onClick={onHandleRefresh}
+      >
+        Refresh
+      </Button>
     </div>
   )
 }
