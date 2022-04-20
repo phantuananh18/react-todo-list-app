@@ -34,7 +34,7 @@
 // export default TodoForm;
 
 /** apply redux */
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Input, Button } from '@mui/material';
 import TodoList from './TodoList';
@@ -51,19 +51,26 @@ const TodoForm = () => {
         setTextInput(value);
     }
 
+    const inputRef = useRef();
+
     const onAddTodo = () => {
         dispatch(addTodo(textInput));
         setTextInput('');
+        inputRef.current.focus();
     }
 
+
+
+
     return (
-        <div>
-            <h1>Refractor redux todo list app</h1>
+        <div className='todo-form'>
+            <h1>REACT TO DO LIST APP</h1>
             <Input
                 placeholder='Write a new task'
                 autoFocus={true}
                 value={textInput}
                 onChange={onChangeTextInput}
+                inputRef={inputRef}
             />
             <Button
                 variant='contained'
