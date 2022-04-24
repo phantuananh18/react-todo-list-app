@@ -1,20 +1,27 @@
-import React from 'react';
+import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
+import { TodoContextProvider } from './context/TodoContext';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <React.StrictMode>
+  // <StrictMode>
   //   <App />
-  // </React.StrictMode>
+  // </StrictMode>
 
   /** apply redux */
-  <Provider store={store}>
+  // <Provider store={store}>
+  //   <App />
+  // </Provider>
+
+  /** apply context API */
+  <TodoContextProvider>
     <App />
-  </Provider>
+  </TodoContextProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
