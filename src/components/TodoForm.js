@@ -34,22 +34,64 @@
 // export default TodoForm;
 
 /** apply redux */
-import React, { useState, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+
+// import React, { useState, useRef, useEffect } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { Input, Button } from '@mui/material';
+// import TodoList from './TodoList';
+// import { addTodo } from '../redux/actions/todoActions';
+
+// const TodoForm = () => {
+//     const todoList = useSelector(state => state.todo)
+//     // console.log('todoLists: ', todoList);
+//     const dispatch = useDispatch();
+//     const [textInput, setTextInput] = useState('');
+
+//     const onChangeTextInput = (event) => {
+//         const value = event.target.value;
+//         setTextInput(value);
+//     }
+
+//     const onAddTodo = () => {
+//         dispatch(addTodo(textInput));
+//         setTextInput('');
+//     }
+
+//     return (
+//         <div>
+//             <h1>Refractor redux todo list app</h1>
+//             <Input
+//                 placeholder='Write a new task'
+//                 autoFocus={true}
+//                 value={textInput}
+//                 onChange={onChangeTextInput}
+//             />
+//             <Button
+//                 variant='contained'
+//                 color='primary'
+//                 style={{
+//                     marginLeft: 10,
+//                 }}
+//                 onClick={onAddTodo}
+//             >
+//                 Add a new task
+//             </Button>
+//             <TodoList todoList={todoList}></TodoList>
+//         </div>
+//     )
+// }
+
+// export default TodoForm;
+
+/** apply ContextAPI */
+import React, { useContext } from 'react';
 import { Input, Button } from '@mui/material';
+import TodoContext from '../context/TodoContext';
+import '../App.css'
 import TodoList from './TodoList';
-import { addTodo } from '../redux/actions/todoActions';
 
 const TodoForm = () => {
-    const todoList = useSelector(state => state.todo)
-    // console.log('todoLists: ', todoList);
-    const dispatch = useDispatch();
-    const [textInput, setTextInput] = useState('');
-
-    const onChangeTextInput = (event) => {
-        const value = event.target.value;
-        setTextInput(value);
-    }
+    const { textInput, todoList, onChangeTextInput, onAddTodo, inputRef } = useContext(TodoContext);
 
     const inputRef = useRef();
 
@@ -60,11 +102,10 @@ const TodoForm = () => {
     }
 
 
-
-
     return (
-        <div className='todo-form'>
-            <h1>REACT TO DO LIST APP</h1>
+        <div className='App'>
+            <h1>Refractor ContextAPI todo list app</h1>
+
             <Input
                 placeholder='Write a new task'
                 autoFocus={true}
@@ -72,17 +113,21 @@ const TodoForm = () => {
                 onChange={onChangeTextInput}
                 inputRef={inputRef}
             />
+
             <Button
                 variant='contained'
                 color='primary'
                 style={{
                     marginLeft: 10,
                 }}
-                onClick={onAddTodo}
+                onClick={() => onAddTodo()}
+
             >
                 Add a new task
             </Button>
-            <TodoList todoList={todoList}></TodoList>
+
+            <TodoList todoList={todoList} />
+
         </div>
     )
 }

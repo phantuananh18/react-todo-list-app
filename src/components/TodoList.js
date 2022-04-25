@@ -24,6 +24,7 @@ import Todo from './Todo';
 import '../App.css'
 
 const TodoList = ({ todoList }) => {
+
     return (
         <div className='todo-list'>
             {todoList.map(todo =>
