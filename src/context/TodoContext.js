@@ -37,9 +37,7 @@ export const TodoContextProvider = (props) => {
 
     const value = {
         textInput,
-        setTextInput,
         todoList,
-        setTodoList,
         inputRef,
         onChangeTextInput,
         onAddTodo,
