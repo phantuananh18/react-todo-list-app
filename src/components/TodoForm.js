@@ -85,7 +85,7 @@
 /** apply ContextAPI */
 import React, { useContext } from 'react';
 import { Input, Button } from '@mui/material';
-import { TodoContext } from '../context/TodoContext';
+import TodoContext from '../context/TodoContext';
 import '../App.css'
 import TodoList from './TodoList';
 
@@ -111,7 +111,7 @@ const TodoForm = () => {
                 style={{
                     marginLeft: 10,
                 }}
-                onClick={onAddTodo}
+                onClick={() => onAddTodo()}
 
             >
                 Add a new task

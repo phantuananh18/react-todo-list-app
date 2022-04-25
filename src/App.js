@@ -101,7 +101,7 @@ export default App;
 import React, { useContext } from 'react';
 import { Button } from '@mui/material';
 import TodoForm from './components/TodoForm';
-import { TodoContext } from './context/TodoContext';
+import TodoContext from './context/TodoContext';
 import './App.css'
 
 const App = () => {

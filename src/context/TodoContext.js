@@ -1,7 +1,7 @@
 import React, { useState, createContext, useRef } from 'react';
 import { v4 } from 'uuid';
 
-export const TodoContext = createContext();
+const TodoContext = createContext();
 
 export const TodoContextProvider = (props) => {
     const [textInput, setTextInput] = useState("");
@@ -17,7 +17,7 @@ export const TodoContextProvider = (props) => {
     }
 
     const onAddTodo = () => {
-        setTodoList([...todoList, { id: v4(), name: textInput, isCompleted: false }]);
+        setTodoList([{ id: v4(), name: textInput, isCompleted: false }, ...todoList]);
         setTextInput("");
         inputRef.current.focus();
     }
@@ -25,13 +25,15 @@ export const TodoContextProvider = (props) => {
     const onDeleteTodo = (id) => {
         const deleteTodo = todoList.filter(todo => todo.id !== id);
         setTodoList(deleteTodo);
+        console.log('delte: ', deleteTodo);
     }
 
-    // const onCompleteTodo = (id) => {
-    //     const completeTodo = todoList.map(todo => todo.id === id ? { ...todo, isCompleted: true } : todo);
-    //     setTodoList(completeTodo);
-    //     console.log(completeTodo);
-    // }
+    const onCompleteTodo = (id) => {
+        const completeTodo = todoList.map(todo => todo.id === id ?
+            { ...todo, isCompleted: true } : todo);
+        setTodoList(completeTodo);
+        console.log(completeTodo);
+    }
 
     const value = {
         textInput,
@@ -42,7 +44,8 @@ export const TodoContextProvider = (props) => {
         onChangeTextInput,
         onAddTodo,
         onRefreshTodoList,
-        onDeleteTodo
+        onDeleteTodo,
+        onCompleteTodo
     };
 
     return (
@@ -51,3 +54,5 @@ export const TodoContextProvider = (props) => {
         </TodoContext.Provider>
     )
 }
+
+export default TodoContext;

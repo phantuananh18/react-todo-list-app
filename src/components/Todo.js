@@ -68,24 +68,28 @@
 // export default Todo;
 
 /** apply ContextAPI */
-import React from 'react';
+import React, { useContext } from 'react';
 import { IconButton, ListItemText } from '@mui/material';
 import DoneIcon from '@mui/icons-material/Done';
 import DeleteIcon from '@mui/icons-material/Delete';
+import TodoContext from '../context/TodoContext';
 
 const Todo = ({ todo }) => {
+
+    const { onDeleteTodo, onCompleteTodo } = useContext(TodoContext);
+
     return (
         <div>
             <ListItemText>
                 {todo.name}
 
-                <IconButton>
-                    {
-                        todo.isCompleted ? <DoneIcon color='success' /> : <DoneIcon />
-                    }
+                <IconButton onClick={() => onCompleteTodo(todo.id)}>
+                    {todo.isCompleted ?
+                        <DoneIcon color='success' /> :
+                        <DoneIcon />}
                 </IconButton>
 
-                <IconButton>
+                <IconButton onClick={() => onDeleteTodo(todo.id)}>
                     <DeleteIcon />
                 </IconButton>
 
