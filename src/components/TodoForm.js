@@ -34,6 +34,7 @@
 // export default TodoForm;
 
 /** apply redux */
+
 // import React, { useState, useRef, useEffect } from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
 // import { Input, Button } from '@mui/material';
@@ -90,8 +91,16 @@ import '../App.css'
 import TodoList from './TodoList';
 
 const TodoForm = () => {
-
     const { textInput, todoList, onChangeTextInput, onAddTodo, inputRef } = useContext(TodoContext);
+
+    const inputRef = useRef();
+
+    const onAddTodo = () => {
+        dispatch(addTodo(textInput));
+        setTextInput('');
+        inputRef.current.focus();
+    }
+
 
     return (
         <div className='App'>
