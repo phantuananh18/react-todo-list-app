@@ -93,15 +93,6 @@ import TodoList from './TodoList';
 const TodoForm = () => {
     const { textInput, todoList, onChangeTextInput, onAddTodo, inputRef } = useContext(TodoContext);
 
-    const inputRef = useRef();
-
-    const onAddTodo = () => {
-        dispatch(addTodo(textInput));
-        setTextInput('');
-        inputRef.current.focus();
-    }
-
-
     return (
         <div className='App'>
             <h1>Refractor ContextAPI todo list app</h1>
