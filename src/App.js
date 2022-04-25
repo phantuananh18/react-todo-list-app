@@ -1,6 +1,5 @@
 /** useState */
-/**
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import { v4 } from 'uuid';
 import './App.css';
@@ -9,6 +8,20 @@ import TodoForm from './components/TodoForm';
 const App = () => {
   const [textInput, setTextInput] = useState(""); //empty string
   const [todoList, setTodoList] = useState([]); //empty array
+
+
+  const storageKey = 'todo-list-app';
+
+  useEffect(() => {
+    const storageTodoList = localStorage.getItem(storageKey);
+    if (storageTodoList) {
+      setTodoList(JSON.parse(storageTodoList))
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem(storageKey, JSON.stringify(todoList));
+  }, [todoList])
 
   const onChangeTextInput = (event) => {
     setTextInput(event.target.value);
@@ -21,7 +34,7 @@ const App = () => {
       ...todoList
     ])
     setTextInput("");
-    // console.log(todoList);
+    console.log({ textInput, todoList });
   }
 
   const onRefresh = () => {
@@ -63,56 +76,54 @@ const App = () => {
 }
 
 export default App;
-*/
 
 /** apply redux */
-/**
-import React from 'react';
-import { Button } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import { refreshTodo } from './redux/actions/todoActions';
-import './App.css';
-import TodoForm from './components/TodoForm';
+// import React from 'react';
+// import { Button } from '@mui/material';
+// import { useDispatch } from 'react-redux';
+// import { refreshTodo } from './redux/actions/todoActions';
+// import './App.css';
+// import TodoForm from './components/TodoForm';
 
-const App = () => {
-  const dispatch = useDispatch();
-  const onHandleRefresh = () => {
-    dispatch(refreshTodo());
-  }
+// const App = () => {
+//   const dispatch = useDispatch();
+//   const onHandleRefresh = () => {
+//     dispatch(refreshTodo());
+//   }
 
-  return (
-    <div className='App'>
-      <TodoForm />
-      <Button
-        variant='contained'
-        color='primary'
-        onClick={onHandleRefresh}
-      >
-        Refresh
-      </Button>
-    </div>
-  )
-}
+//   return (
+//     <div className='App'>
+//       <TodoForm />
+//       <Button
+//         variant='contained'
+//         color='primary'
+//         onClick={onHandleRefresh}
+//       >
+//         Refresh
+//       </Button>
+//     </div>
+//   )
+// }
 
-export default App;
-*/
+// export default App;
+
 
 /** apply ContextAPI */
-import React, { useContext } from 'react';
-import { Button } from '@mui/material';
-import TodoForm from './components/TodoForm';
-import TodoContext from './context/TodoContext';
-import './App.css'
+// import React, { useContext } from 'react';
+// import { Button } from '@mui/material';
+// import TodoForm from './components/TodoForm';
+// import TodoContext from './context/TodoContext';
+// import './App.css'
 
-const App = () => {
-  const { onRefreshTodoList } = useContext(TodoContext);
+// const App = () => {
+//   const { onRefreshTodoList } = useContext(TodoContext);
 
-  return (
-    <div className='App'>
-      <TodoForm />
-      <Button variant='contained' onClick={onRefreshTodoList}>Refresh</Button>
-    </div>
-  )
-}
+//   return (
+//     <div className='App'>
+//       <TodoForm />
+//       <Button variant='contained' onClick={onRefreshTodoList}>Refresh</Button>
+//     </div>
+//   )
+// }
 
-export default App;
+// export default App;
