@@ -7,6 +7,15 @@ export const TodoContextProvider = (props) => {
     const [textInput, setTextInput] = useState("");
     const [todoList, setTodoList] = useState([]);
     const inputRef = useRef();
+    const [isOpen, setIsOpen] = useState(false);
+
+    const onOpenModal = () => {
+        setIsOpen(true);
+    }
+
+    const onCloseModal = () => {
+        setIsOpen(false);
+    }
 
     const onChangeTextInput = (event) => {
         setTextInput(event.target.value);
@@ -19,31 +28,33 @@ export const TodoContextProvider = (props) => {
     const onAddTodo = () => {
         setTodoList([{ id: v4(), name: textInput, isCompleted: false }, ...todoList]);
         setTextInput("");
+        setIsOpen(false);
         inputRef.current.focus();
     }
 
     const onDeleteTodo = (id) => {
         const deleteTodo = todoList.filter(todo => todo.id !== id);
         setTodoList(deleteTodo);
-        console.log('delte: ', deleteTodo);
     }
 
     const onCompleteTodo = (id) => {
         const completeTodo = todoList.map(todo => todo.id === id ?
             { ...todo, isCompleted: true } : todo);
         setTodoList(completeTodo);
-        console.log(completeTodo);
     }
 
     const value = {
         textInput,
         todoList,
         inputRef,
+        isOpen,
         onChangeTextInput,
         onAddTodo,
         onRefreshTodoList,
         onDeleteTodo,
-        onCompleteTodo
+        onCompleteTodo,
+        onOpenModal,
+        onCloseModal
     };
 
     return (

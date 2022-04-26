@@ -1,37 +1,49 @@
-import React from 'react';
-import { Input, Button } from '@mui/material';
-import TodoList from './TodoList';
-import '../App.css';
+/** useState */
+// import React from "react";
+// import { Input, Button } from "@mui/material";
+// import TodoList from "./TodoList";
+// import "../App.css";
 
-const TodoForm = ({ onAddTodo, onChangeTextInput, onDeleteTodo, onCompleteTodo, todoList, textInput }) => {
+// const TodoForm = ({
+//     onAddTodo,
+//     onChangeTextInput,
+//     onDeleteTodo,
+//     onCompleteTodo,
+//     todoList,
+//     textInput,
+// }) => {
+//     return (
+//         <div className="todo-form">
+//             <Input
+//                 autoFocus
+//                 placeholder="Write a new task..."
+//                 value={textInput}
+//                 onChange={onChangeTextInput}
+//             />
+//             <Button
+//                 variant="contained"
+//                 color="success"
+//                 style={{
+//                     marginLeft: 10,
+//                 }}
+//                 disabled={!textInput}
+//                 onClick={onAddTodo}
+//             >
+//                 Add a new task
+//             </Button>
 
-    return (
-        <div className='todo-form'>
-            <Input
-                autoFocus
-                placeholder='Write a new task...'
-                value={textInput}
-                onChange={onChangeTextInput}
-            />
-            <Button
-                variant='contained'
-                color='success'
-                style={{
-                    marginLeft: 10,
-                }}
-                onClick={onAddTodo}
-                disabled={!textInput}
-            >
-                Add a new task
-            </Button>
-            <div>
-                <TodoList todoList={todoList} onDeleteTodo={onDeleteTodo} onCompleteTodo={onCompleteTodo} />
-            </div>
-        </div >
-    )
-}
+//             <div>
+//                 <TodoList
+//                     todoList={todoList}
+//                     onDeleteTodo={onDeleteTodo}
+//                     onCompleteTodo={onCompleteTodo}
+//                 />
+//             </div>
+//         </div>
+//     );
+// };
 
-export default TodoForm;
+// export default TodoForm;
 
 /** apply redux */
 
@@ -84,43 +96,54 @@ export default TodoForm;
 // export default TodoForm;
 
 /** apply ContextAPI */
-// import React, { useContext } from 'react';
-// import { Input, Button } from '@mui/material';
-// import TodoContext from '../context/TodoContext';
-// import '../App.css'
-// import TodoList from './TodoList';
+import React, { useContext } from 'react';
+import { Input, Button } from '@mui/material';
+import { Modal } from 'react-responsive-modal';
+import 'react-responsive-modal/styles.css';
+import TodoContext from '../context/TodoContext';
+import '../App.css'
+import TodoList from './TodoList';
 
-// const TodoForm = () => {
-//     const { textInput, todoList, onChangeTextInput, onAddTodo, inputRef } = useContext(TodoContext);
+const TodoForm = () => {
+    const { textInput, todoList, inputRef, isOpen, onChangeTextInput, onAddTodo, onOpenModal, onCloseModal } = useContext(TodoContext);
 
-//     return (
-//         <div className='App'>
-//             <h1>Refractor ContextAPI todo list app</h1>
+    return (
+        <div className='App'>
+            <h1>Refractor ContextAPI todo list app</h1>
 
-//             <Input
-//                 placeholder='Write a new task'
-//                 autoFocus={true}
-//                 value={textInput}
-//                 onChange={onChangeTextInput}
-//                 inputRef={inputRef}
-//             />
+            <Input
+                placeholder='Write a new task'
+                autoFocus={true}
+                value={textInput}
+                onChange={onChangeTextInput}
+                inputRef={inputRef}
+            />
 
-//             <Button
-//                 variant='contained'
-//                 color='primary'
-//                 style={{
-//                     marginLeft: 10,
-//                 }}
-//                 onClick={() => onAddTodo()}
+            <Button
+                variant='contained'
+                color='success'
+                style={{
+                    marginLeft: 10,
+                }}
+                onClick={onOpenModal}
+                disabled={!textInput}
 
-//             >
-//                 Add a new task
-//             </Button>
+            >
+                Add a new task
+            </Button>
 
-//             <TodoList todoList={todoList} />
+            <Modal open={isOpen} onClose={onCloseModal} >
+                <h1>Are you sure add a new task?</h1>
+                <div style={{ textAlign: 'center' }}>
+                    <Button variant='contained' color='success' onClick={onAddTodo}>Yes</Button>
+                    <Button style={{ marginLeft: 5 }} variant='contained' color='error' onClick={onCloseModal}>No</Button>
+                </div>
+            </Modal>
 
-//         </div>
-//     )
-// }
+            <TodoList todoList={todoList} />
 
-// export default TodoForm;
+        </div>
+    )
+}
+
+export default TodoForm;
