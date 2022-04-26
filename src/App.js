@@ -1,5 +1,5 @@
 /** useState */
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import { v4 } from 'uuid';
 import './App.css';
@@ -34,7 +34,6 @@ const App = () => {
       ...todoList
     ])
     setTextInput("");
-    console.log({ textInput, todoList });
   }
 
   const onRefresh = () => {
