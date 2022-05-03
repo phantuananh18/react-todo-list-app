@@ -1,5 +1,6 @@
 import React, { useState, createContext, useRef } from "react";
 import { v4 } from "uuid";
+import { Modal } from "react-responsive-modal";
 
 const TodoContext = createContext();
 
@@ -15,6 +16,21 @@ export const TodoContextProvider = (props) => {
 
   const onCloseModal = () => {
     setIsOpen(false);
+    setTextInput("");
+    inputRef.current.focus();
+  };
+
+  const handleDuplicateTodo = () => {
+    const mapped = todoList.map((todo) => todo.name);
+    const flag = mapped.includes(textInput); //method returns true or false if an array contains a specified value.
+    if (!flag) {
+      onAddTodo();
+    } else {
+      alert("The task is already");
+      setIsOpen(false);
+    }
+    setTextInput("");
+    inputRef.current.focus();
   };
 
   const onChangeTextInput = (event) => {
@@ -60,6 +76,7 @@ export const TodoContextProvider = (props) => {
     onCompleteTodo,
     onOpenModal,
     onCloseModal,
+    handleDuplicateTodo,
   };
 
   return (
