@@ -10,7 +10,6 @@
 //   const [textInput, setTextInput] = useState(""); //empty string
 //   const [todoList, setTodoList] = useState([]); //empty array
 
-
 //   const storageKey = 'todo-list-app';
 
 //   useEffect(() => {
@@ -106,21 +105,36 @@
 // export default App;
 
 /** apply ContextAPI */
-import React, { useContext } from 'react';
-import { Button } from '@mui/material';
-import TodoForm from './components/TodoForm';
-import TodoContext from './context/TodoContext';
-import './App.css'
+import React, { useContext, useEffect } from "react";
+import { Button } from "@mui/material";
+import TodoForm from "./components/TodoForm";
+import TodoContext from "./context/TodoContext";
+import "./App.css";
 
 const App = () => {
-  const { onRefreshTodoList } = useContext(TodoContext);
+  const { onRefreshTodoList, todoList, setTodoList } = useContext(TodoContext);
+
+  const storageKey = "todo-list-app";
+
+  useEffect(() => {
+    const storageTodoList = localStorage.getItem(storageKey);
+    if (storageTodoList) {
+      setTodoList(JSON.parse(storageTodoList));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(storageKey, JSON.stringify(todoList));
+  }, [todoList]);
 
   return (
-    <div className='App'>
+    <div className="App">
       <TodoForm />
-      <Button variant='contained' onClick={onRefreshTodoList}>Refresh</Button>
+      <Button variant="contained" onClick={onRefreshTodoList}>
+        Refresh
+      </Button>
     </div>
-  )
-}
+  );
+};
 
 export default App;
