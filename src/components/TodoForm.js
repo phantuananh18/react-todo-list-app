@@ -105,60 +105,33 @@ import "../App.css"
 import TodoList from "./TodoList"
 
 const TodoForm = () => {
-  const {
-    textInput,
-    todoList,
-    inputRef,
-    isOpen,
-    onChangeTextInput,
-    onAddTodo,
-    onOpenModal,
-    onCloseModal,
-    handleDuplicateTodo,
-  } = useContext(TodoContext)
+    const { textInput, todoList, onChangeTextInput, onAddTodo, inputRef } = useContext(TodoContext);
 
-  return (
-    <div className="App">
-      <h1>Refractor ContextAPI todo list app</h1>
+    return (
+        <div className='App'>
+            <h1>Refractor ContextAPI todo list app</h1>
 
-      <Input
-        placeholder="Write a new task"
-        autoFocus={true}
-        value={textInput}
-        onChange={onChangeTextInput}
-        inputRef={inputRef}
-      />
+            <Input
+                placeholder='Write a new task'
+                autoFocus={true}
+                value={textInput}
+                onChange={onChangeTextInput}
+                inputRef={inputRef}
+            />
 
-      <Button
-        variant="contained"
-        color="success"
-        style={{
-          marginLeft: 10,
-        }}
-        onClick={onOpenModal}
-        disabled={!textInput}
-      >
-        Add a new task
-      </Button>
+            <Button
+                variant='contained'
+                color='primary'
+                style={{
+                    marginLeft: 10,
+                }}
+                onClick={() => onAddTodo()}
 
-      <Modal open={isOpen} onClose={onCloseModal}>
-        <h1>Are you sure add a new task?</h1>
-        <div style={{ textAlign: "center" }}>
-          <Button
-            variant="contained"
-            color="success"
-            onClick={handleDuplicateTodo}
-          >
-            Yes
-          </Button>
-          <Button
-            style={{ marginLeft: 5 }}
-            variant="contained"
-            color="error"
-            onClick={onCloseModal}
-          >
-            No
-          </Button>
+            >
+                Add a new task
+            </Button>
+
+            <TodoList todoList={todoList} />
         </div>
       </Modal>
 
