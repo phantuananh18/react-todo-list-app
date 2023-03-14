@@ -1,3 +1,4 @@
+/** useState */
 // import React from 'react';
 // import Todo from './Todo';
 // import '../App.css';
@@ -19,12 +20,31 @@
 // export default TodoList;
 
 /** apply redux */
+// import React from 'react';
+// import Todo from './Todo';
+// import '../App.css'
+
+// const TodoList = ({ todoList }) => {
+
+//     return (
+//         <div className='todo-list'>
+//             {todoList.map(todo =>
+//                 <Todo
+//                     key={todo.id}
+//                     todo={todo}
+//                 />)}
+//         </div>
+//     )
+// }
+
+// export default TodoList;
+
+/** apply contextAPI */
 import React from 'react';
 import Todo from './Todo';
-import '../App.css'
+import '../App.css';
 
 const TodoList = ({ todoList }) => {
-
     return (
         <div className='todo-list'>
             {todoList.map(todo =>

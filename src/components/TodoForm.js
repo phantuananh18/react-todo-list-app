@@ -1,35 +1,47 @@
-// import React from 'react';
-// import { Input, Button } from '@mui/material';
-// import TodoList from './TodoList';
-// import '../App.css';
+/** useState */
+// import React from "react";
+// import { Input, Button } from "@mui/material";
+// import TodoList from "./TodoList";
+// import "../App.css";
 
-// const TodoForm = ({ onAddTodo, onChangeTextInput, onDeleteTodo, onCompleteTodo, todoList, textInput }) => {
-
+// const TodoForm = ({
+//     onAddTodo,
+//     onChangeTextInput,
+//     onDeleteTodo,
+//     onCompleteTodo,
+//     todoList,
+//     textInput,
+// }) => {
 //     return (
-//         <div className='todo-form'>
+//         <div className="todo-form">
 //             <Input
 //                 autoFocus
-//                 placeholder='Write a new task...'
+//                 placeholder="Write a new task..."
 //                 value={textInput}
 //                 onChange={onChangeTextInput}
 //             />
 //             <Button
-//                 variant='contained'
-//                 color='success'
+//                 variant="contained"
+//                 color="success"
 //                 style={{
 //                     marginLeft: 10,
 //                 }}
-//                 onClick={onAddTodo}
 //                 disabled={!textInput}
+//                 onClick={onAddTodo}
 //             >
 //                 Add a new task
 //             </Button>
+
 //             <div>
-//                 <TodoList todoList={todoList} onDeleteTodo={onDeleteTodo} onCompleteTodo={onCompleteTodo} />
+//                 <TodoList
+//                     todoList={todoList}
+//                     onDeleteTodo={onDeleteTodo}
+//                     onCompleteTodo={onCompleteTodo}
+//                 />
 //             </div>
-//         </div >
-//     )
-// }
+//         </div>
+//     );
+// };
 
 // export default TodoForm;
 
@@ -84,11 +96,13 @@
 // export default TodoForm;
 
 /** apply ContextAPI */
-import React, { useContext } from 'react';
-import { Input, Button } from '@mui/material';
-import TodoContext from '../context/TodoContext';
-import '../App.css'
-import TodoList from './TodoList';
+import React, { useContext } from "react"
+import { Input, Button } from "@mui/material"
+import { Modal } from "react-responsive-modal"
+import "react-responsive-modal/styles.css"
+import TodoContext from "../context/TodoContext"
+import "../App.css"
+import TodoList from "./TodoList"
 
 const TodoForm = () => {
     const { textInput, todoList, onChangeTextInput, onAddTodo, inputRef } = useContext(TodoContext);
@@ -118,9 +132,12 @@ const TodoForm = () => {
             </Button>
 
             <TodoList todoList={todoList} />
-
         </div>
-    )
+      </Modal>
+
+      <TodoList todoList={todoList} />
+    </div>
+  )
 }
 
-export default TodoForm;
+export default TodoForm

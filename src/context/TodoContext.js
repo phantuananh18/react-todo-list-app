@@ -1,58 +1,87 @@
-import React, { useState, createContext, useRef } from 'react';
-import { v4 } from 'uuid';
+import React, { useState, createContext, useRef } from "react";
+import { v4 } from "uuid";
+import { Modal } from "react-responsive-modal";
 
 const TodoContext = createContext();
 
 export const TodoContextProvider = (props) => {
-    const [textInput, setTextInput] = useState("");
-    const [todoList, setTodoList] = useState([]);
-    const inputRef = useRef();
+  const [textInput, setTextInput] = useState("");
+  const [todoList, setTodoList] = useState([]);
+  const inputRef = useRef();
+  const [isOpen, setIsOpen] = useState(false);
 
-    const onChangeTextInput = (event) => {
-        setTextInput(event.target.value);
+  const onOpenModal = () => {
+    setIsOpen(true);
+  };
+
+  const onCloseModal = () => {
+    setIsOpen(false);
+    setTextInput("");
+    inputRef.current.focus();
+  };
+
+  const handleDuplicateTodo = () => {
+    const mapped = todoList.map((todo) => todo.name);
+    const flag = mapped.includes(textInput); //method returns true or false if an array contains a specified value.
+    if (!flag) {
+      onAddTodo();
+    } else {
+      alert("The task is already");
+      setIsOpen(false);
     }
+    setTextInput("");
+    inputRef.current.focus();
+  };
 
-    const onRefreshTodoList = () => {
-        setTodoList([]);
-    }
+  const onChangeTextInput = (event) => {
+    setTextInput(event.target.value);
+  };
 
-    const onAddTodo = () => {
-        setTodoList([{ id: v4(), name: textInput, isCompleted: false }, ...todoList]);
-        setTextInput("");
-        inputRef.current.focus();
-    }
+  const onRefreshTodoList = () => {
+    setTodoList([]);
+  };
 
-    const onDeleteTodo = (id) => {
-        const deleteTodo = todoList.filter(todo => todo.id !== id);
-        setTodoList(deleteTodo);
-        console.log('delte: ', deleteTodo);
-    }
+  const onAddTodo = () => {
+    setTodoList([
+      { id: v4(), name: textInput, isCompleted: false },
+      ...todoList,
+    ]);
+    setTextInput("");
+    setIsOpen(false);
+    inputRef.current.focus();
+  };
 
-    const onCompleteTodo = (id) => {
-        const completeTodo = todoList.map(todo => todo.id === id ?
-            { ...todo, isCompleted: true } : todo);
-        setTodoList(completeTodo);
-        console.log(completeTodo);
-    }
+  const onDeleteTodo = (id) => {
+    const deleteTodo = todoList.filter((todo) => todo.id !== id);
+    setTodoList(deleteTodo);
+  };
 
-    const value = {
-        textInput,
-        setTextInput,
-        todoList,
-        setTodoList,
-        inputRef,
-        onChangeTextInput,
-        onAddTodo,
-        onRefreshTodoList,
-        onDeleteTodo,
-        onCompleteTodo
-    };
+  const onCompleteTodo = (id) => {
+    const completeTodo = todoList.map((todo) =>
+      todo.id === id ? { ...todo, isCompleted: true } : todo
+    );
+    setTodoList(completeTodo);
+  };
 
-    return (
-        <TodoContext.Provider value={value}>
-            {props.children}
-        </TodoContext.Provider>
-    )
-}
+  const value = {
+    textInput,
+    todoList,
+    inputRef,
+    isOpen,
+    setTodoList,
+    onChangeTextInput,
+    onAddTodo,
+    onRefreshTodoList,
+    onDeleteTodo,
+    onCompleteTodo,
+    onOpenModal,
+    onCloseModal,
+    handleDuplicateTodo,
+  };
+
+  return (
+    <TodoContext.Provider value={value}>{props.children}</TodoContext.Provider>
+  );
+};
 
 export default TodoContext;
